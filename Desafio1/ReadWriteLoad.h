@@ -35,6 +35,37 @@ char* ReadArchivo(const char* name, unsigned int& n){
     return PtrArr;
 }
 
+bool SaveArchivo(char* &PtrArr, unsigned int &n, const char* name = "../../datasetDesarrollo/Texto_Desencriptado.txt"){
+    /*Descripcion:
+     *  Guarda todos los elementos de un arreglo en un archivo de texto plano .txt
+     *
+     *Args:
+     *  -(const char*) name: Apuntador al nombre del archivo, es opcional si no se entrega un nombre se usara
+     *  "Texto_Desencriptado".
+     *  -(char* &) PtrArr: Direccion de memoria del apuntador que señala al arreglo.
+     *
+     *Return: Valor booleano true que indica que el archivo fue guardado de forma exitosa, y falso si ocurrio un error
+     *
+     *Libreria: https://cplusplus.com/reference/fstream/ofstream/
+     */
+
+    ofstream Archivo(name, ios::out);
+    if(!Archivo.is_open()){
+        return false;
+    }
+
+    Archivo.write(PtrArr,n);
+
+    if(Archivo.fail()){
+        Archivo.close();
+        return false;
+    }
+
+    Archivo.close();
+    return true;
+}
+
+
 
 
 
