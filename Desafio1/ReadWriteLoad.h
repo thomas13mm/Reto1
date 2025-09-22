@@ -66,7 +66,4 @@ bool SaveArchivo(char* &PtrArr, unsigned int &n, const char* name = "../../datas
 }
 
 
-
-
-
 #endif // READWRITELOAD_H

@@ -53,4 +53,23 @@ bool esCaracterInvalido(unsigned char caracter) {
 
     return true;
 }
+
+char* desencriptarTexto(const char* textoEncriptado, unsigned int n, unsigned char* K, unsigned int* N ) {
+    /*Descripcion:
+     *  Funcion encargada de intentar desencriptar un texto encriptado usando
+     *  un par (K, N). Aplica XOR y rotacion a la derecha, y valida que el 
+     *  resultado contenga unicamente caracteres permitidos (A-Z, a-z, 0-9).
+     *
+     *Args:
+     *  -(const char*) textoEncriptado: Texto de entrada (arreglo de caracteres encriptados).
+     *  -(unsigned int) n: Longitud del texto encriptado.
+     *  -(unsigned char) K: Clave para la operacion XOR.
+     *  -(unsigned int) N: Numero de posiciones de rotacion a la derecha.
+     *  -(char*) textoDesencriptado: Arreglo dinamico donde se almacena el resultado.
+     *
+     *return: (bool) true si todos los caracteres desencriptados son validos,
+     *               false si se encuentra al menos un caracter invalido.
+     */
+}
+
 #endif // DESENCRIPTADO_H
