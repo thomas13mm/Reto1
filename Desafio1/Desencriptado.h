@@ -58,22 +58,33 @@ bool esCaracterInvalido(unsigned char caracter) {
 }
 
 void desencriptarTexto(char* textoEncriptado, unsigned int n, unsigned char& K, unsigned int& N, char*& arrCaracteres, char*& arrNumeros) {
-    /*Descripcion:
-    *  Funcion encargada de desencriptar un texto encriptado, probando diferentes combinaciones
-    *  de K y N hasta obtener un resultado valido (caracteres alfanumericos).
+    /*
+    * Descripcion:
+    *  Funcion encargada de desencriptar un texto encriptado aplicando, para cada caracter,
+    *  una operacion XOR con una clave K y una rotacion de N bits a la derecha.
+    *  Se prueban todas las combinaciones posibles de (K, N) hasta encontrar una
+    *  que produzca un texto valido (solo caracteres alfanumericos: A-Z, a-z, 0-9).
     *
-    *Args:
+    * Args:
     *  -(char*) textoEncriptado: Apuntador al arreglo con el texto encriptado.
-    *  -(unsigned int) n: Longitud del texto encriptado.
-    *  -(unsigned char&) K: Referencia a la clave XOR correcta (resultado).
-    *  -(unsigned int&) N: Referencia al numero de rotaciones correcto (resultado).
-    *  -(char*&) arrCaracteres: Apuntador a un arreglo dinamico que contendra
-    *                           los caracteres desencriptados validos.
-    *  -(char*&) arrNumeros: Apuntador a un arreglo dinamico que contendra 
-    *                        unicamente los numeros desencriptados.
+    *  -(unsigned int) n: Longitud del texto encriptado (numero de caracteres).
+    *  -(unsigned char&) K: Referencia donde se almacenara la clave XOR correcta.
+    *  -(unsigned int&) N: Referencia donde se almacenara el numero de rotaciones correcto.
+    *  -(char*&) arrCaracteres: Apuntador de salida. Contendra un arreglo dinamico
+    *                           con todos los caracteres alfabeticos desencriptados.
+    *  -(char*&) arrNumeros: Apuntador de salida. Contendra un arreglo dinamico
+    *                        con todos los digitos numericos desencriptados.
     *
-    *return: (void) Los resultados se devuelven a traves de las referencias
-    *                y apuntadores dinamicos.
+    * return: (void) 
+    *  - Si se encuentra una combinacion valida de (K, N), se devuelven:
+    *       K y N correctos (por referencia).
+    *       arrCaracteres y arrNumeros con memoria dinamica reservada y llenada.
+    *  - Si no se encuentra una combinacion valida:
+    *       arrCaracteres y arrNumeros quedan en nullptr.
+    * 
+    * Nota: 
+    *  El llamador es responsable de liberar la memoria dinamica reservada
+    *  para arrCaracteres y arrNumeros cuando ya no se utilicen.
     */
 
     char* temp = new char[n];
@@ -82,6 +93,9 @@ void desencriptarTexto(char* textoEncriptado, unsigned int n, unsigned char& K, 
         for (unsigned int nPrueba = 0; nPrueba < 8; nPrueba++) {
 
             bool valido = true;
+            unsigned int contadorNum = 0;
+            unsigned int contadorChar = 0;
+            
             for (unsigned int i = 0; i < n; i++) {
                 unsigned char c = textoEncriptado[i];
 
@@ -93,13 +107,53 @@ void desencriptarTexto(char* textoEncriptado, unsigned int n, unsigned char& K, 
                     break;
                 }
 
+                temp[i] = c;
 
+                if (c >= '0' && c <= '9') {
+                    contadorNum++;
+                }
+                else {
+                    contadorChar++;
+                }
 
             }
 
+            // si la combinacion (K, N) fue correcta
+            if (valido) {
 
+                K = (unsigned char)kPrueba; //se guardan los valores encontrados
+                N = nPrueba;
+
+                arrCaracteres = new char[contadorChar + 1];
+                arrNumeros = new char[contadorNum + 1];
+
+                unsigned int idxN = 0, idxC = 0;
+
+                for (unsigned int i = 0; i < n; i++) {
+                    char c = temp[i];
+                    if (c >= '0' && c <= '9') {
+                        arrNumeros[idxN] = c;
+                    } 
+                    else {
+                        arrCaracteres[idxC] = c;
+                    }
+                }
+
+                delete[] temp;
+                return;
+
+            }
         }
     }
+
+    /*Si se recorrieron todas las combinaciones y ninguna fue valida
+    * se libera temp y se dejan los punteros de salida en nullptr
+    * para indicar "no encontrado"
+    */
+
+    delete[] temp;
+    arrCaracteres = nullptr;
+    arrNumeros = nullptr;
 }
 
 #endif // DESENCRIPTADO_H
