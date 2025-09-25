@@ -32,4 +32,37 @@ void ConvertirTextoANumero(unsigned char &n){
     }
 }
 
+bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr){
+    /*Descripcion:
+     *  Itera sobre un arreglo y valida si otro arreglo esta dentro del arreglo mas grande, si esta presente se toma como verdadero
+     *
+     *Args:
+     *  -(unsigned char*) BigArr: Referencia al arreglo de caracteres que contiene el texto desencriptado.
+     *  -(unsigned char*) SmallArr: Referencia al arreglo de caracteres que tiene el fragmento a buscar.
+     *  -(unsigned int) lengthBigArr: referencia al tamaño de arreglo mas grande
+     *  -(unsigned int)lengthSmallArr: referancia al tamaño del arreglo mas pequeño
+     *
+     *returns:
+     *  -(bool) true si esta presente, false si no lo esta.
+     */
+
+    unsigned int i=0;
+    unsigned int j=0;
+
+    while(i != lengthBigArr ){
+        if(BigArr[i]==SmallArr[j]){
+            j++;
+        }
+        else if(lengthSmallArr==j){
+            return true;
+        }
+        else{
+            j=0;
+        }
+        i++;
+    }
+    return false;
+
+}
+
 #endif // VERIFICACIONES_H

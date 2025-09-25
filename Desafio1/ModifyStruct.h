@@ -1,7 +1,7 @@
 #ifndef MODIFYSTRUCT_H
 #define MODIFYSTRUCT_H
 
-void SepararArrToLZ78(unsigned char* &Arr, unsigned char* &caracteres, unsigned int* &enteros, unsigned int &lengthArr, unsigned int &lengthIntYChar){
+void SepararArr(unsigned char* &Arr, unsigned char* &caracteres, unsigned int* &enteros, unsigned int &lengthArr, unsigned int &lengthIntYChar){
     /*Descripcion:
      *  Toma un arreglo de caracteres y lo separa en 2 arreglos de tal forma que los caracteres que corresponden a numeros quedan en
      *  un solo arreglo y los caracteres alfabeticos quedan en otro arreglo por separados manteniendo una relacion de tuplas por indice
@@ -22,7 +22,13 @@ void SepararArrToLZ78(unsigned char* &Arr, unsigned char* &caracteres, unsigned 
         if(Arr[i]<='9' || Arr[i]>='0'){
             enteros[i%lengthIntYChar]=(Arr[i]-'0');
         }
-        caracteres[i%lenth]=Arr[i+1];
+        else if(Arr[i+1!=NULL]){
+            caracteres[i%lengthIntYChar]=Arr[i+1];
+        }
+        else{
+            caracteres[i%lengthIntYChar]='/';
+        }
+
     }
 
 }
