@@ -4,7 +4,7 @@
 bool EsNumero(char &num){
     /*
      * Descripcion:
-     *  Verifica si un caracter es un numero basandose en su equivalencia ascci, si es un numero se devuelve verdader, de lo contrario se
+     *  Verifica si un caracter es un numero basandose en su equivalencia ascci, si es un numero se devuelve verdadero, de lo contrario se
      *  devuelve falso.
      *
      * Args:
@@ -18,6 +18,18 @@ bool EsNumero(char &num){
         return true;
     }
     return false;
+}
+
+void ConvertirTextoANumero(unsigned char &n){
+    /*Descripcion:
+     *  Convierte un caracter de texto a numero
+     *
+     *Args:
+     *  -(unsigned char) n: referencia al caracter que se quiere convertir a numero:
+     */
+    if(n<='9' && n>='0'){
+        n=n-'0';
+    }
 }
 
 #endif // VERIFICACIONES_H

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-char* ReadArchivo(const char* name, unsigned int& n){
+unsigned char* ReadArchivo(const unsigned char* name, unsigned int& n){
     /*Descripcion:
      *  Funcion encargada de la lectura de un archivo de texto plano
      *
@@ -29,7 +29,7 @@ char* ReadArchivo(const char* name, unsigned int& n){
     Archivo.seekg(0, ios::end);
     n = Archivo.tellg();
     Archivo.seekg(0, ios::beg);
-    char* PtrArr = new char[n];
+    unsigned char* PtrArr = new unsigned char[n];
     Archivo.read(PtrArr, n);
     Archivo.close();
     return PtrArr;
@@ -42,6 +42,7 @@ bool SaveArchivo(char* &PtrArr, unsigned int &n, const char* name = "../../datas
      *Args:
      *  -(const char*) name: Apuntador al nombre del archivo, es opcional si no se entrega un nombre se usara
      *  "Texto_Desencriptado".
+     *  -(unsigned int) n: Tamaño del arreglo.
      *  -(char* &) PtrArr: Direccion de memoria del apuntador que señala al arreglo.
      *
      *Return: Valor booleano true que indica que el archivo fue guardado de forma exitosa, y falso si ocurrio un error
