@@ -3,7 +3,7 @@
 
 #endif // METODOLZ78_H
 
-void descompresionLZ78(int*& prefijos, unsigned char*& caracteres, int n, char*& result, int& tamResult) {
+void descompresionLZ78(int*& prefijos, unsigned char*& caracteres, int n, char*& salida, int& tamSalida) {
 
 
     char** diccionario = new char*[n+1]; // arreglo de apuntadores a palabras
@@ -25,8 +25,8 @@ void descompresionLZ78(int*& prefijos, unsigned char*& caracteres, int n, char*&
             diccionario[k + 1][j] = diccionario[idx][j];
         }
 
-        diccionario[k + 1][longitudes[idx]] = c   // se pone la letra nueva al final
-        longitudes[k + 1] = nuevaLong             // guarda la longitud
+        diccionario[k + 1][longitudes[idx]] = c; // se pone la letra nueva al final
+        longitudes[k + 1] = nuevaLong;             // guarda la longitud
     }
 
     // ciclo para calcular la longitud total del texto descomprimido sumando todas las longitudes anteriores
@@ -35,6 +35,21 @@ void descompresionLZ78(int*& prefijos, unsigned char*& caracteres, int n, char*&
         total += longitudes[i];
     }
 
-    
+    salida = new char[total];
+    tamSalida = total;
 
+    int pos = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < longitudes[i]; j++) {
+            salida[pos++] = diccionario[i][j];
+        }
+    }
+
+    // 4. Liberar memoria auxiliar
+    for (int i = 1; i <= n; i++) {
+        delete[] diccionario[i];
+    }
+    delete[] diccionario;
+    delete[] longitudes;
 }
+
