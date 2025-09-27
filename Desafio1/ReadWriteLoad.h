@@ -7,7 +7,7 @@
 
 using namespace std;
 
-unsigned char* ReadArchivo(const unsigned char* name, unsigned int& n){
+unsigned char* ReadArchivo(const char* name, unsigned int& n){
     /*Descripcion:
      *  Funcion encargada de la lectura de un archivo de texto plano
      *
@@ -20,7 +20,7 @@ unsigned char* ReadArchivo(const unsigned char* name, unsigned int& n){
      *Libreria: https://cplusplus.com/reference/fstream/fstream/
      */
 
-    ifstream Archivo(name, ios::in);
+    ifstream Archivo(name, ios::in|| ios:: binary);
     if (!Archivo.is_open()) {
         cerr << "Error: no se pudo abrir el archivo " << name << endl;
         n = 0;
@@ -30,12 +30,12 @@ unsigned char* ReadArchivo(const unsigned char* name, unsigned int& n){
     n = Archivo.tellg();
     Archivo.seekg(0, ios::beg);
     unsigned char* PtrArr = new unsigned char[n];
-    Archivo.read(PtrArr, n);
+    Archivo.read(reinterpret_cast<char*>(PtrArr), n);
     Archivo.close();
     return PtrArr;
 }
 
-bool SaveArchivo(char* &PtrArr, unsigned int &n, const char* name = "../../datasetDesarrollo/Texto_Desencriptado.txt"){
+bool SaveArchivo(unsigned char* &PtrArr, unsigned int &n, const char* name = "../../datasetDesarrollo/Texto_Desencriptado.txt"){
     /*Descripcion:
      *  Guarda todos los elementos de un arreglo en un archivo de texto plano .txt
      *
@@ -55,7 +55,7 @@ bool SaveArchivo(char* &PtrArr, unsigned int &n, const char* name = "../../datas
         return false;
     }
 
-    Archivo.write(PtrArr,n);
+    Archivo.write(reinterpret_cast<const char*>(PtrArr), n);
 
     if(Archivo.fail()){
         Archivo.close();

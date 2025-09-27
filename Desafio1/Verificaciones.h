@@ -1,7 +1,7 @@
 #ifndef VERIFICACIONES_H
 #define VERIFICACIONES_H
 
-bool EsNumero(char &num){
+bool EsNumero(unsigned char &num){
     /*
      * Descripcion:
      *  Verifica si un caracter es un numero basandose en su equivalencia ascci, si es un numero se devuelve verdadero, de lo contrario se
@@ -32,37 +32,41 @@ void ConvertirTextoANumero(unsigned char &n){
     }
 }
 
-bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr){
+bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr) {
     /*Descripcion:
-     *  Itera sobre un arreglo y valida si otro arreglo esta dentro del arreglo mas grande, si esta presente se toma como verdadero
+     *  Verifica si SmallArr está contenido dentro de BigArr.
      *
      *Args:
-     *  -(unsigned char*) BigArr: Referencia al arreglo de caracteres que contiene el texto desencriptado.
-     *  -(unsigned char*) SmallArr: Referencia al arreglo de caracteres que tiene el fragmento a buscar.
-     *  -(unsigned int) lengthBigArr: referencia al tamaño de arreglo mas grande
-     *  -(unsigned int)lengthSmallArr: referancia al tamaño del arreglo mas pequeño
+     *  -(unsigned char*) BigArr: Apuntador al arreglo grande.
+     *  -(unsigned char*) SmallArr: Apuntador al arreglo pequeño (patrón a buscar).
+     *  -(unsigned int) lengthBigArr: Tamaño del arreglo grande.
+     *  -(unsigned int) lengthSmallArr: Tamaño del arreglo pequeño.
      *
      *returns:
-     *  -(bool) true si esta presente, false si no lo esta.
+     *  true si SmallArr está contenido en BigArr, false en caso contrario.
      */
 
-    unsigned int i=0;
-    unsigned int j=0;
+    if (lengthSmallArr == 0 || lengthBigArr < lengthSmallArr) {
+        return false; // casos borde: patrón vacío o más grande que el texto
+    }
 
-    while(i != lengthBigArr ){
-        if(BigArr[i]==SmallArr[j]){
+    unsigned int i = 0; // recorre BigArr
+    unsigned int j = 0; // recorre SmallArr
+
+    while (i < lengthBigArr) {
+        if (BigArr[i] == SmallArr[j]) {
             j++;
-        }
-        else if(lengthSmallArr==j){
-            return true;
-        }
-        else{
-            j=0;
+            if (j == lengthSmallArr) {
+                return true; // se encontró el patrón completo
+            }
+        } else {
+            j = 0; // reinicia el patrón
         }
         i++;
     }
-    return false;
 
+    return false;
 }
+
 
 #endif // VERIFICACIONES_H
