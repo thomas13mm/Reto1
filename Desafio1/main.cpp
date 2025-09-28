@@ -23,8 +23,8 @@ int main(){
     unsigned int length_Pista;
     unsigned int length_CharInd;
     unsigned int length_Resultado;
-    const char namepista[]="../../datasetDesarrollo/pista3.txt";
-    const char nameencriptado[]="../../datasetDesarrollo/Encriptado3.txt";
+    const char namepista[]="../../datasetDesarrollo/pista4.txt";
+    const char nameencriptado[]="../../datasetDesarrollo/Encriptado4.txt";
 
     //Leer y cargar estructuras
     Encriptado=ReadArchivo(nameencriptado,length_Encriptado);

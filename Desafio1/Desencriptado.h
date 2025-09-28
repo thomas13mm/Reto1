@@ -81,4 +81,11 @@ void desencriptarTexto(unsigned int &K, unsigned int &N,unsigned char* &Encripta
         resultado[i] = c;
     }
 }
+
+
+unsigned int rotarDerecha16(unsigned int valor, unsigned int N) {
+    N = N % 16;
+    return (valor >> N) | (valor << (16 - N));
+}
+
 #endif // DESENCRIPTADO_H

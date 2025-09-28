@@ -20,7 +20,7 @@ unsigned char* ReadArchivo(const char* name, unsigned int& n){
      *Libreria: https://cplusplus.com/reference/fstream/fstream/
      */
 
-    ifstream Archivo(name, ios::in|| ios:: binary);
+    ifstream Archivo(name, ios::in | ios:: binary);
     if (!Archivo.is_open()) {
         cerr << "Error: no se pudo abrir el archivo " << name << endl;
         n = 0;
@@ -29,7 +29,7 @@ unsigned char* ReadArchivo(const char* name, unsigned int& n){
     Archivo.seekg(0, ios::end);
     n = Archivo.tellg();
     Archivo.seekg(0, ios::beg);
-    unsigned char* PtrArr = new unsigned char[n];
+    unsigned char* PtrArr = new   unsigned char[n];
     Archivo.read(reinterpret_cast<char*>(PtrArr), n);
     Archivo.close();
     return PtrArr;
