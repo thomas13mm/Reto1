@@ -52,7 +52,7 @@ bool esCaracterInvalido(unsigned char caracter) {
     *               false si pertenece al rango valido.
     *
     */
-    if (caracter >= '0' && caracter <= '9')
+    if (caracter >= 0 && caracter <= 9)
         return false;
     if (caracter >= 'a' && caracter <= 'z')
         return false;
@@ -73,7 +73,7 @@ void print(unsigned char* &arr1, unsigned int* &arr2, unsigned int &length1, uns
     }
 }
 
-bool esPrimerCharCero(unsigned char c) {
+unsigned short int esPrimerCharCero(unsigned char c) {
     /*Descripcion:
      *  Verifica si el caracter recibido es exactamente '0'.
      *  Si es '0' retorna true.
@@ -87,10 +87,13 @@ bool esPrimerCharCero(unsigned char c) {
      *  false en cualquier otro caso.
      */
 
-    if (c == '0') {
-        return true;
+    if (c == 0) {
+        return 2;
     }
-    return false;
+    else if(c>=1 && c<=9){
+        return 1;
+    }
+    return 3;
 }
 
 #endif // VERIFICACIONES_H
