@@ -1,37 +1,6 @@
 #ifndef VERIFICACIONES_H
 #define VERIFICACIONES_H
 
-bool EsNumero(unsigned char &num){
-    /*
-     * Descripcion:
-     *  Verifica si un caracter es un numero basandose en su equivalencia ascci, si es un numero se devuelve verdadero, de lo contrario se
-     *  devuelve falso.
-     *
-     * Args:
-     *  -(&char) num: Direccion de memoria del caracter que se quiere comprobar-
-     *
-     * return:
-     *  -bool.
-     */
-
-    if(num>='0' && num<='9'){
-        return true;
-    }
-    return false;
-}
-
-void ConvertirTextoANumero(unsigned char &n){
-    /*Descripcion:
-     *  Convierte un caracter de texto a numero
-     *
-     *Args:
-     *  -(unsigned char) n: referencia al caracter que se quiere convertir a numero:
-     */
-    if(n<='9' && n>='0'){
-        n=n-'0';
-    }
-}
-
 bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr) {
     /*Descripcion:
      *  Verifica si SmallArr (pista) está contenido dentro de BigArr (texto desencriptado/descomprimido).
@@ -70,6 +39,28 @@ bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBi
     return false; // No se encontró
 }
 
+bool esCaracterInvalido(unsigned char caracter) {
+    /*Descripcion:
+    *  Funcion encargada de verificar si un caracter esta fuera del rango permitido
+    *  (A-Z, a-z, 0-9).
+    *
+    *Args:
+    *  -(unsigned char) caracter: Caracter a evaluar despues de las operaciones
+    *                             de desencriptado.
+    *
+    *return: (bool) true si el caracter esta fuera del rango permitido,
+    *               false si pertenece al rango valido.
+    *
+    */
+    if (caracter >= '0' && caracter <= '9')
+        return false;
+    if (caracter >= 'a' && caracter <= 'z')
+        return false;
+    if (caracter >= 'A' && caracter <= 'Z')
+        return false;
+
+    return true;
+}
 
 void print(unsigned char* &arr1, unsigned int* &arr2, unsigned int &length1, unsigned int &length2){
     std::cout<<"Letras: ";

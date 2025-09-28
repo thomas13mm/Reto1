@@ -31,30 +31,6 @@ unsigned char rotarDerecha(unsigned char c, unsigned int N) {
     return (unsigned char)((c >> N) | (c << (8 - N)));
 }
 
-bool esCaracterInvalido(unsigned char caracter) {
-    /*Descripcion:
-    *  Funcion encargada de verificar si un caracter esta fuera del rango permitido
-    *  (A-Z, a-z, 0-9).
-    *
-    *Args:
-    *  -(unsigned char) caracter: Caracter a evaluar despues de las operaciones
-    *                             de desencriptado.
-    *
-    *return: (bool) true si el caracter esta fuera del rango permitido,
-    *               false si pertenece al rango valido.
-    *
-    */
-    if (caracter >= '0' && caracter <= '9')
-        return false;
-    if (caracter >= 'a' && caracter <= 'z')
-        return false;
-    if (caracter >= 'A' && caracter <= 'Z')
-        return false;
-
-    return true;
-}
-
-
 void desencriptarTexto(unsigned int &K, unsigned int &N,unsigned char* &Encriptado,unsigned int &n,unsigned char* &resultado) {
     /*Descripcion:
      *  Desencripta un arreglo de bytes aplicando primero XOR con K
@@ -73,7 +49,7 @@ void desencriptarTexto(unsigned int &K, unsigned int &N,unsigned char* &Encripta
         unsigned char c = Encriptado[i];
 
         // primero XOR
-        c = c ^ (unsigned char)K;
+        c=aplicarXOR(c,K);
 
         // luego rotar derecha
         c = rotarDerecha(c, N);
@@ -82,10 +58,5 @@ void desencriptarTexto(unsigned int &K, unsigned int &N,unsigned char* &Encripta
     }
 }
 
-
-unsigned int rotarDerecha16(unsigned int valor, unsigned int N) {
-    N = N % 16;
-    return (valor >> N) | (valor << (16 - N));
-}
 
 #endif // DESENCRIPTADO_H

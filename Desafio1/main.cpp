@@ -78,12 +78,12 @@ int main(){
         }
     }
 
+    delete[] Encriptado;
+    delete[] Pista;
+
     if(!found){
         cout<<"No se encontro ningun caso valido\n";
     }
-
-    delete[] Encriptado;
-    delete[] Pista;
 
     cout<<"All done.";
     return 0;
