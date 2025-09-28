@@ -3,7 +3,7 @@
 
 bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr) {
     /*Descripcion:
-     *  Verifica si SmallArr (pista) está contenido dentro de BigArr (texto desencriptado/descomprimido).
+     *  Verifica si SmallArr (pista) esta contenido dentro de BigArr (texto desencriptado/descomprimido).
      *
      *Args:
      *  -(unsigned char*) BigArr: Apuntador al arreglo grande (texto completo).
@@ -12,7 +12,7 @@ bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBi
      *  -(unsigned int) lengthSmallArr: Tamaño del arreglo pequeño.
      *
      *returns:
-     *  true si SmallArr está contenido en BigArr, false en caso contrario.
+     *  true si SmallArr esta contenido en BigArr, false en caso contrario.
      */
 
     if (lengthSmallArr == 0 || lengthBigArr < lengthSmallArr) {
@@ -23,7 +23,7 @@ bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBi
     for (unsigned int i = 0; i <= lengthBigArr - lengthSmallArr; i++) {
         bool match = true;
 
-        // Comparar carácter por carácter
+        // Comparar caracter por caracter
         for (unsigned int j = 0; j < lengthSmallArr; j++) {
             if (BigArr[i + j] != SmallArr[j]) {
                 match = false;
@@ -32,11 +32,11 @@ bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBi
         }
 
         if (match) {
-            return true; // Se encontró la pista
+            return true; // Se encontro la pista
         }
     }
 
-    return false; // No se encontró
+    return false; // No se encontro
 }
 
 bool esCaracterInvalido(unsigned char caracter) {
@@ -71,6 +71,26 @@ void print(unsigned char* &arr1, unsigned int* &arr2, unsigned int &length1, uns
     for(unsigned int i = 0; i<length2;i++){
         std::cout<<arr2[i]<<", ";
     }
+}
+
+bool esPrimerCharCero(unsigned char c) {
+    /*Descripcion:
+     *  Verifica si el caracter recibido es exactamente '0'.
+     *  Si es '0' retorna true.
+     *  Si esta en el rango '1'-'9' o no es un digito, retorna false.
+     *
+     *Args:
+     *  -(unsigned char) c: Caracter a verificar.
+     *
+     *Return:
+     *  true si c es '0'.
+     *  false en cualquier otro caso.
+     */
+
+    if (c == '0') {
+        return true;
+    }
+    return false;
 }
 
 #endif // VERIFICACIONES_H
