@@ -34,11 +34,11 @@ void ConvertirTextoANumero(unsigned char &n){
 
 bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBigArr, unsigned int &lengthSmallArr) {
     /*Descripcion:
-     *  Verifica si SmallArr está contenido dentro de BigArr.
+     *  Verifica si SmallArr (pista) está contenido dentro de BigArr (texto desencriptado/descomprimido).
      *
      *Args:
-     *  -(unsigned char*) BigArr: Apuntador al arreglo grande.
-     *  -(unsigned char*) SmallArr: Apuntador al arreglo pequeño (patrón a buscar).
+     *  -(unsigned char*) BigArr: Apuntador al arreglo grande (texto completo).
+     *  -(unsigned char*) SmallArr: Apuntador al arreglo pequeño (pista a buscar).
      *  -(unsigned int) lengthBigArr: Tamaño del arreglo grande.
      *  -(unsigned int) lengthSmallArr: Tamaño del arreglo pequeño.
      *
@@ -47,26 +47,39 @@ bool in(unsigned char* &BigArr, unsigned char* &SmallArr, unsigned int &lengthBi
      */
 
     if (lengthSmallArr == 0 || lengthBigArr < lengthSmallArr) {
-        return false; // casos borde: patrón vacío o más grande que el texto
+        return false; // casos borde
     }
 
-    unsigned int i = 0; // recorre BigArr
-    unsigned int j = 0; // recorre SmallArr
+    // Recorremos BigArr hasta donde quepa SmallArr
+    for (unsigned int i = 0; i <= lengthBigArr - lengthSmallArr; i++) {
+        bool match = true;
 
-    while (i < lengthBigArr) {
-        if (BigArr[i] == SmallArr[j]) {
-            j++;
-            if (j == lengthSmallArr) {
-                return true; // se encontró el patrón completo
+        // Comparar carácter por carácter
+        for (unsigned int j = 0; j < lengthSmallArr; j++) {
+            if (BigArr[i + j] != SmallArr[j]) {
+                match = false;
+                break;
             }
-        } else {
-            j = 0; // reinicia el patrón
         }
-        i++;
+
+        if (match) {
+            return true; // Se encontró la pista
+        }
     }
 
-    return false;
+    return false; // No se encontró
 }
 
+
+void print(unsigned char* &arr1, unsigned int* &arr2, unsigned int &length1, unsigned int &length2){
+    std::cout<<"Letras: ";
+    for(unsigned int i = 0; i<length1;i++){
+        std::cout<<arr1[i]<<", ";
+    }
+    cout<<'\n'<<"Indices: ";
+    for(unsigned int i = 0; i<length2;i++){
+        std::cout<<arr2[i]<<", ";
+    }
+}
 
 #endif // VERIFICACIONES_H
